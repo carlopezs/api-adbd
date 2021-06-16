@@ -1,0 +1,15 @@
+{
+  "name": "api-oracle",
+  "version": "1.0.0",
+  "description": "api oracle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "oracledb": "^5.1.0"
+  },
+  "author": "Carlos Lopez",
+  "license": "ISC"
+}
