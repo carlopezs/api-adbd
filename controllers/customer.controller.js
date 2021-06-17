@@ -35,7 +35,7 @@ const postCustomers = async (req, res) => {
       active,
       create_date: new Date(),
       last_update: new Date(),
-    });
+    },{autoCommit: true});
 
     res.json({
       message: "Customoer ingresado correctamente",
@@ -83,7 +83,7 @@ const putCustomers = async (req, res) => {
       address_id,
       active,
       last_update: new Date(),
-    });
+    },{autoCommit: true});
 
     res.json({
       message: "Customer actualizado correctamente",
@@ -107,8 +107,31 @@ const putCustomers = async (req, res) => {
   }
 };
 
+const deleteCustomer = async (req, res) => {
+    const connection = await getConnect();
+    const {customer_id} = req.query;
+    const sql = `DELETE FROM customer WHERE customer_id = :customer_id`;
+    try {
+       const resp =  await connection.execute(sql, {customer_id},{autoCommit: true});
+       console.log(resp);
+      res.json({
+        message: "Customer eliminado con exito!!",
+        body: {
+          obejct: {customer_id},
+
+        },
+      });
+      await connection.close();
+    } catch (error) {
+        console.log(error)
+      res.json({
+        error,
+      });
+    }
+}
 module.exports = {
   getCustomers,
   postCustomers,
   putCustomers,
-};
+  deleteCustomer
+}
